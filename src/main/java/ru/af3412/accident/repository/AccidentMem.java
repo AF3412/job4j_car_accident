@@ -39,7 +39,7 @@ public class AccidentMem implements AccidentRepository {
 
     @Override
     public Accident findAccidentById(int id) {
-        return null;
+        return accidents.get(id);
     }
 
     @Override

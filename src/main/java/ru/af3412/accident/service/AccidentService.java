@@ -27,4 +27,8 @@ public class AccidentService {
         }
     }
 
+    public Accident findAccidentById(int id) {
+        return accidentRepository.findAccidentById(id);
+    }
+
 }

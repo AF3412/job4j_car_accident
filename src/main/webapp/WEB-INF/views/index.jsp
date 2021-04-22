@@ -25,13 +25,13 @@
     </thead>
     <tbody>
     <a href="<c:url value='/create'/>">Добавить инцидент</a>
-    <a href="<c:url value='/edit'/>">Редактировать инцидент</a>
     <c:forEach items="${accidents}" var="ac">
         <tr>
             <th scope="row"><c:out value="${ac.id}"/></th>
             <td><c:out value="${ac.name}"/></td>
             <td><c:out value="${ac.text}"/></td>
             <td><c:out value="${ac.address}"/></td>
+            <td><a href="<c:url value='/edit?id=${ac.id}'/>">Редактировать инцидент</a></td>
         </tr>
     </c:forEach>
     </tbody>
