@@ -5,17 +5,23 @@ import ru.af3412.accident.model.Accident;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem implements AccidentRepository {
 
     private final ConcurrentHashMap<Integer, Accident> accidents;
+    private final AtomicInteger count;
 
     public AccidentMem() {
+        count = new AtomicInteger(0);
         this.accidents = new ConcurrentHashMap<>();
-        this.accidents.put(1, new Accident(1, "accident 1", "text 1", "addr 1"));
-        this.accidents.put(2, new Accident(2, "accident 2", "text 2", "addr 2"));
-        this.accidents.put(3, new Accident(3, "accident 3", "text 3", "addr 3"));
+        int id = count.incrementAndGet();
+        this.accidents.put(id, new Accident(id, "accident 1", "text 1", "addr 1"));
+        id = count.incrementAndGet();
+        this.accidents.put(id, new Accident(id, "accident 2", "text 2", "addr 2"));
+        id = count.incrementAndGet();
+        this.accidents.put(id, new Accident(id, "accident 3", "text 3", "addr 3"));
     }
 
     @Override
@@ -24,8 +30,11 @@ public class AccidentMem implements AccidentRepository {
     }
 
     @Override
-    public Accident addAccident(Accident accident) {
-        return null;
+    public Accident create(Accident accident) {
+        int id = count.incrementAndGet();
+        accident.setId(id);
+        accidents.put(id, accident);
+        return accident;
     }
 
     @Override
@@ -35,7 +44,8 @@ public class AccidentMem implements AccidentRepository {
 
     @Override
     public Accident updateAccident(Accident accident) {
-        return null;
+        accidents.put(accident.getId(), accident);
+        return accidents.get(accident.getId());
     }
 
     @Override

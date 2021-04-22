@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface AccidentRepository {
 
     Collection<Accident> findAllAccidents();
-    Accident addAccident(Accident accident);
+    Accident create(Accident accident);
     Accident findAccidentById(int id);
     Accident updateAccident(Accident accident);
     void deleteAccident(Accident accident);

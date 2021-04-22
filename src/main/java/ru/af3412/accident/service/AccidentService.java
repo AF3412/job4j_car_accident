@@ -19,4 +19,12 @@ public class AccidentService {
         return accidentRepository.findAllAccidents();
     }
 
+    public Accident create(Accident accident) {
+        if (accident.getId() != 0) {
+            return accidentRepository.updateAccident(accident);
+        } else {
+            return accidentRepository.create(accident);
+        }
+    }
+
 }
