@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.af3412.accident.model.Accident;
 import ru.af3412.accident.repository.AccidentRepository;
 
-import java.util.Map;
+import java.util.Collection;
 
 @Service
 public class AccidentService {
@@ -15,7 +15,7 @@ public class AccidentService {
         this.accidentRepository = accidentRepository;
     }
 
-    public Map<Integer, Accident> findAllAccidents() {
+    public Collection<Accident> findAllAccidents() {
         return accidentRepository.findAllAccidents();
     }
 

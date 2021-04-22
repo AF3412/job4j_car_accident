@@ -27,10 +27,10 @@
 
     <c:forEach items="${accidents}" var="ac">
         <tr>
-            <th scope="row"><c:out value="${ac.key}"/></th>
-            <td><c:out value="${ac.value.name}"/></td>
-            <td><c:out value="${ac.value.text}"/></td>
-            <td><c:out value="${ac.value.address}"/></td>
+            <th scope="row"><c:out value="${ac.id}"/></th>
+            <td><c:out value="${ac.name}"/></td>
+            <td><c:out value="${ac.text}"/></td>
+            <td><c:out value="${ac.address}"/></td>
         </tr>
     </c:forEach>
     </tbody>
