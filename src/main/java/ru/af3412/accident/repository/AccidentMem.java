@@ -5,6 +5,7 @@ import ru.af3412.accident.model.Accident;
 import ru.af3412.accident.model.AccidentType;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,19 +13,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class AccidentMem implements AccidentRepository {
 
-    private final ConcurrentHashMap<Integer, Accident> accidents;
-    private final Map<Integer, AccidentType> types;
-    private final AtomicInteger count;
+    private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
+    private final Map<Integer, AccidentType> types = new HashMap<>();
+    private final AtomicInteger count = new AtomicInteger(0);
 
     public AccidentMem() {
-        types = Map.of(
-                1, AccidentType.of(1, "Две машины"),
-                2, AccidentType.of(2, "Машина и человек"),
-                3, AccidentType.of(3, "Машина и велосипед")
-        );
+        types.put(1, AccidentType.of(1, "Две машины"));
+        types.put(2, AccidentType.of(2, "Машина и человек"));
+        types.put(3, AccidentType.of(3, "Машина и велосипед"));
 
-        count = new AtomicInteger(0);
-        this.accidents = new ConcurrentHashMap<>();
         int id = count.incrementAndGet();
         this.accidents.put(id, new Accident(id, "accident 1", "text 1", "addr 1"));
         id = count.incrementAndGet();
