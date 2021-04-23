@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.af3412.accident.model.Accident;
+import ru.af3412.accident.model.Rule;
 import ru.af3412.accident.service.AccidentService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Controller
 public class AccidentControl {
@@ -20,6 +24,7 @@ public class AccidentControl {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("types", accidentService.findAllAccidentTypes());
+        model.addAttribute("rules", accidentService.findAllRules());
         return "accident/create";
     }
 
@@ -30,7 +35,8 @@ public class AccidentControl {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Accident accident) {
+    public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
+        String[] ids = req.getParameterValues("rIds");
         accidentService.create(accident);
         return "redirect:/";
     }

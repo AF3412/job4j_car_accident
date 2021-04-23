@@ -1,5 +1,6 @@
 package ru.af3412.accident.model;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Accident {
@@ -8,6 +9,7 @@ public class Accident {
     private String text;
     private String address;
     private AccidentType type;
+    private List<Rule> rules;
 
     public Accident() {
     }
@@ -78,6 +80,14 @@ public class Accident {
 
     public void setType(AccidentType type) {
         this.type = type;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<Rule> rules) {
+        this.rules = rules;
     }
 
     @Override
