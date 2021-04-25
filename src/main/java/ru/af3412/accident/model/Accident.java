@@ -1,14 +1,23 @@
 package ru.af3412.accident.model;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "accident")
 public class Accident {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @Transient
     private String text;
+    @Transient
     private String address;
+    @Transient
     private AccidentType type;
+    @Transient
     private List<Rule> rules;
 
     public Accident() {
