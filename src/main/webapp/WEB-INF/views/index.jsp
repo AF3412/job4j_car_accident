@@ -19,8 +19,6 @@
     <tr>
         <th scope="col">id</th>
         <th scope="col">Name</th>
-        <th scope="col">Text</th>
-        <th scope="col">Address</th>
     </tr>
     </thead>
     <tbody>
