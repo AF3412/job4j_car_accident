@@ -7,6 +7,13 @@ public class Rule {
     private int id;
     private String name;
 
+    public Rule() {
+    }
+
+    public Rule(int id) {
+        this.id = id;
+    }
+
     public static Rule of(int id, String name) {
         Rule rule = new Rule();
         rule.id = id;

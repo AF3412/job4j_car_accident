@@ -11,7 +11,9 @@ import ru.af3412.accident.model.Rule;
 import ru.af3412.accident.service.AccidentService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AccidentControl {
@@ -31,13 +33,20 @@ public class AccidentControl {
     @GetMapping("/edit")
     public String edit(@RequestParam("id") int id, Model model) {
         model.addAttribute("accident", accidentService.findAccidentById(id));
+        model.addAttribute("types", accidentService.findAllAccidentTypes());
+        model.addAttribute("rules", accidentService.findAllRules());
         return "accident/edit";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
+        List<Rule> rules = Arrays.stream(ids)
+                .map(id -> new Rule(Integer.parseInt(id)))
+                .collect(Collectors.toList());
+        accident.setRules(rules);
         accidentService.create(accident);
+
         return "redirect:/";
     }
 

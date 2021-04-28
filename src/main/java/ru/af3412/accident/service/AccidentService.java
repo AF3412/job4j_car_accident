@@ -1,6 +1,5 @@
 package ru.af3412.accident.service;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.af3412.accident.model.Accident;
 import ru.af3412.accident.model.AccidentType;
@@ -14,12 +13,9 @@ public class AccidentService {
 
     private final AccidentRepository accidentRepository;
 
-    public AccidentService(
-                    @Qualifier("accidentHibernate")
-                    AccidentRepository accidentRepository) {
+    public AccidentService(AccidentRepository accidentRepository) {
         this.accidentRepository = accidentRepository;
     }
-
 
     public Collection<Accident> findAllAccidents() {
         return accidentRepository.findAllAccidents();
