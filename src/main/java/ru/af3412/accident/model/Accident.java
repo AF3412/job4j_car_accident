@@ -1,6 +1,7 @@
 package ru.af3412.accident.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ public class Accident {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @Transient
     private String text;
-    @Transient
     private String address;
-    @Transient
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private AccidentType type;
-    @Transient
-    private List<Rule> rules;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "accident_and_rule",
+            joinColumns = {@JoinColumn(name = "accident_id")},
+            inverseJoinColumns = {@JoinColumn(name = "rule_id")})
+    private List<Rule> rules = new ArrayList<>();
 
     public Accident() {
     }
