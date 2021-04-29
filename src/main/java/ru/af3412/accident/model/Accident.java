@@ -1,15 +1,27 @@
 package ru.af3412.accident.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "accident")
 public class Accident {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String text;
     private String address;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private AccidentType type;
-    private List<Rule> rules;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "accident_and_rule",
+            joinColumns = {@JoinColumn(name = "accident_id")},
+            inverseJoinColumns = {@JoinColumn(name = "rule_id")})
+    private List<Rule> rules = new ArrayList<>();
 
     public Accident() {
     }
