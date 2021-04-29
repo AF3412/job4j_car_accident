@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.af3412.accident.model.Accident;
 import ru.af3412.accident.model.Rule;
-import ru.af3412.accident.service.AccidentService;
+import ru.af3412.accident.repository.AccidentJpaRepository;
+import ru.af3412.accident.repository.AccidentTypeJpaRepository;
+import ru.af3412.accident.repository.RulesJpaRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -17,24 +19,30 @@ import java.util.stream.Collectors;
 
 @Controller
 public class AccidentControl {
-    private final AccidentService accidentService;
 
-    public AccidentControl(AccidentService accidentService) {
-        this.accidentService = accidentService;
+    private final AccidentJpaRepository accidentJpaRepository;
+    private final AccidentTypeJpaRepository accidentTypeJpaRepository;
+    private final RulesJpaRepository rulesJpaRepository;
+
+    public AccidentControl(AccidentJpaRepository accidentJpaRepository, AccidentTypeJpaRepository accidentTypeJpaRepository, RulesJpaRepository rulesJpaRepository) {
+        this.accidentJpaRepository = accidentJpaRepository;
+        this.accidentTypeJpaRepository = accidentTypeJpaRepository;
+        this.rulesJpaRepository = rulesJpaRepository;
     }
+
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("types", accidentService.findAllAccidentTypes());
-        model.addAttribute("rules", accidentService.findAllRules());
+        model.addAttribute("types", accidentTypeJpaRepository.findAll());
+        model.addAttribute("rules", rulesJpaRepository.findAll());
         return "accident/create";
     }
 
     @GetMapping("/edit")
     public String edit(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidentService.findAccidentById(id));
-        model.addAttribute("types", accidentService.findAllAccidentTypes());
-        model.addAttribute("rules", accidentService.findAllRules());
+        model.addAttribute("accident", accidentJpaRepository.findById(id).get());
+        model.addAttribute("types", accidentTypeJpaRepository.findAll());
+        model.addAttribute("rules", rulesJpaRepository.findAll());
         return "accident/edit";
     }
 
@@ -45,7 +53,7 @@ public class AccidentControl {
                 .map(id -> new Rule(Integer.parseInt(id)))
                 .collect(Collectors.toList());
         accident.setRules(rules);
-        accidentService.create(accident);
+        accidentJpaRepository.save(accident);
 
         return "redirect:/";
     }

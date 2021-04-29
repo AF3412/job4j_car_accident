@@ -33,6 +33,7 @@
                         <option value="${type.id}" selected="${type.id == accident.type.id}">${type.name}</option>
                     </c:forEach>
                 </select>
+            </td>
         </tr>
         <tr>
             <td>Статьи:</td>
@@ -43,6 +44,7 @@
 
                     </c:forEach>
                 </select>
+            </td>
         </tr>
         <tr>
             <td colspan='2'><input name="submit" type="submit" value="Сохранить" /></td>

@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td><label for="accident_address">Адрес</label></td>
-            <td>    <input id="accident_address" type='text' name='address'></td>
+            <td><input id="accident_address" type='text' name='address'></td>
         </tr>
         <tr>
             <td><label for="type_id">Тип:</label></td>
@@ -25,6 +25,7 @@
                         <option value="${type.id}">${type.name}</option>
                     </c:forEach>
                 </select>
+            </td>
         </tr>
         <tr>
             <td>Статьи:</td>
@@ -34,6 +35,7 @@
                         <option value="${rule.id}">${rule.name}</option>
                     </c:forEach>
                 </select>
+            </td>
         </tr>
         <tr>
             <td colspan='2'><input name="submit" type="submit" value="Сохранить" /></td>

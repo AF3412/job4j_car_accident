@@ -8,7 +8,7 @@ import ru.af3412.accident.repository.AccidentRepository;
 
 import java.util.Collection;
 
-@Service
+//@Service
 public class AccidentService {
 
     private final AccidentRepository accidentRepository;
