@@ -14,6 +14,9 @@
 </head>
 <body>
 <h1>Accidents main page</h1>
+<div>
+    Login as : ${user.username}
+</div>
 <table class="table table-striped">
     <thead>
     <tr>
