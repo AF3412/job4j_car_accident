@@ -17,6 +17,7 @@
 <div>
     Login as : ${user.username}
 </div>
+<a href="<c:url value='/reg'/>">Регистрация</a>
 <table class="table table-striped">
     <thead>
     <tr>
